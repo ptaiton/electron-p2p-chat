@@ -10,6 +10,7 @@ import { Message } from '../../types/Message'
 
 export const REQUEST_CONNECTIONS = 'REQUEST_CONNECTIONS'
 export const RESPONSE_CONNECTIONS = 'RESPONSE_CONNECTIONS'
+export const ADD_CONNECTION = 'ADD_CONNECTION'
 export const REQUEST_MESSAGES = 'REQUEST_MESSAGES'
 export const RESPONSE_MESSAGES = 'RESPONSE_MESSAGES'
 

@@ -1,20 +1,38 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import Input from '@material-ui/core/Input'
 import { InputChangeEventHandler } from '../types/events'
+import { ADD_CONNECTION } from '../actions/connection/connectionActions'
+import { Button } from '@material-ui/core'
 
 export default () => {
-  const [ ip, setIp ] = useState('')
+  const dispatch = useDispatch()
+  const [ host, setHost ] = useState('')
+  const [ name, setName ] = useState('')
 
   const handleIpInputChange: InputChangeEventHandler = (event) => {
-    setIp(event.target.value)
+    setHost(event.target.value)
+  }
+
+  const handleNameInputChange: InputChangeEventHandler = (event) => {
+    setName(event.target.value)
+  }
+
+  const handleAddConnectionClick = () => {
+    dispatch({type: ADD_CONNECTION, connection: { host, name }})
   }
 
   return (
     <div>
       <Input
         onChange={handleIpInputChange}
-        value={ip}
+        value={host}
         placeholder="Enter IP of the host" />
+      <Input
+        onChange={handleNameInputChange}
+        value={name}
+        placeholder="Enter name of the connection" />
+      <Button onClick={handleAddConnectionClick}>Add connection</Button>
     </div>
   )
 }

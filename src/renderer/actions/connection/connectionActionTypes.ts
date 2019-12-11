@@ -2,13 +2,15 @@ import { Action } from 'redux'
 import { 
   REQUEST_CONNECTIONS, 
   RESPONSE_CONNECTIONS, 
+  ADD_CONNECTION,
   REQUEST_MESSAGES, 
-  RESPONSE_MESSAGES
+  RESPONSE_MESSAGES,
 } from './connectionActions'
 import { Connection } from '../../types/Connection'
 import { Message } from '../../types/Message'
 
 export type RequestConnectionsAction = Action<typeof REQUEST_CONNECTIONS>
+export type AddConnectionAction = Action<typeof ADD_CONNECTION>
 export type ResponseConnectionsAction = Action<typeof RESPONSE_CONNECTIONS> & {
   connections: Connection[]
 }
