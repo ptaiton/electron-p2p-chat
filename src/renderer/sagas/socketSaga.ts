@@ -13,6 +13,7 @@ function* updateSocket() {
     socket.close()
 
     const newSocket = connect(`http://${host}:3000`)
+    newSocket.on('message', (msg: string) => console.log(msg))
     yield put({ type: SET_SOCKET, socket: newSocket })
   } catch (e) {
     console.log(e)

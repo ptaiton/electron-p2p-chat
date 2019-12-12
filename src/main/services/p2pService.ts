@@ -13,6 +13,6 @@ const io = socketIO(server, { serveClient: false })
 io.on('connection', (socket) => {
   console.log('new user connected')
   socket.on('message', (msg: string) => {
-    console.log(msg)
+    io.emit('message', msg)
   })
 })
