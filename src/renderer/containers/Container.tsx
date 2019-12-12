@@ -5,6 +5,9 @@ import List from '@material-ui/core/List'
 import Divider from '@material-ui/core/Divider'
 import AddConnection from '@material-ui/icons/AddCircleOutlineOutlined'
 import ListItemLink from '../components/ListItemLink/ListItemLink'
+import ConnectionsList from '../components/ConnectionsList/ConnectionsList'
+import { useSelector } from 'react-redux'
+import { getConnections } from '../selectors/connectionSelectors'
 
 const drawerWidth = 240
 
@@ -35,6 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default ({ children }: Props) => {
   const classes = useStyles()
+  const connections = useSelector(getConnections)
 
   return (
     <div className={classes.root}>
@@ -47,6 +51,9 @@ export default ({ children }: Props) => {
           <ListItemLink to="/add-connection" icon={<AddConnection />} primary="Add connection" />
         </List>
         <Divider />
+        <List>
+          <ConnectionsList connections={connections} />
+        </List>
       </Drawer>
       <main className={classes.content}>
         {children}

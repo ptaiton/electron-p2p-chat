@@ -4,7 +4,9 @@ import { applyMiddleware, compose, createStore } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 
 import createRootReducer from '../reducers/reducer'
+import { saveState } from '../utils/localstorage'
 import saga from '../sagas/saga'
+import throttle from '../utils/throttle'
 
 export const history = createHashHistory()
 const sagaMiddleware = createSagaMiddleware()
@@ -18,6 +20,10 @@ const store = createStore(
     ),
   ),
 )
+
+store.subscribe(throttle(() => {
+  saveState({ connections: store.getState().connections })
+}, 1000))
 
 
 sagaMiddleware.run(saga)
