@@ -1,0 +1,7 @@
+.autoscroll {
+  flex-basis: auto;
+  display: flex;
+  flex-direction: column-reverse;
+  height: calc(100% - 56px);
+  overflow-y: auto;
+}

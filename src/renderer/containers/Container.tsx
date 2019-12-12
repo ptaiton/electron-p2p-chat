@@ -30,7 +30,6 @@ const useStyles = makeStyles((theme: Theme) =>
     toolbar: theme.mixins.toolbar,
     content: {
       flexGrow: 1,
-      backgroundColor: theme.palette.background.default,
       padding: theme.spacing(3),
     },
   }),
@@ -48,6 +47,7 @@ export default ({ children }: Props) => {
         anchor="left">
         <List>
           <ListItemLink to="/add-connection" icon={<AddConnection />} primary="Add connection" />
+          <ListItemLink to="/messages" icon={<AddConnection />} primary="Messages" />
         </List>
         <Divider />
       </Drawer>
