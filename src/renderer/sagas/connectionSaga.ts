@@ -1,9 +1,9 @@
 import { put, takeLatest } from 'redux-saga/effects'
 import { LocationChangeAction, LOCATION_CHANGE } from 'connected-react-router'
-import { REQUEST_MESSAGES, REQUEST_CONNECTIONS } from '../actions/connection/connectionActions'
+import { REQUEST_MESSAGES, REQUEST_CONNECTIONS, ADD_CONNECTION } from '../actions/connection/connectionActions'
 import { ROUTES } from '../types/route'
 
-function* locationChange(action: LocationChangeAction) {
+function* addConnection(action: LocationChangeAction) {
   try {
     switch (action.payload.location.pathname) {
       case ROUTES.HOME.path: {
@@ -19,7 +19,7 @@ function* locationChange(action: LocationChangeAction) {
 }
 
 function* connectionSaga(action: LocationChangeAction) {
-  yield takeLatest(LOCATION_CHANGE, locationChange)
+  yield takeLatest(ADD_CONNECTION, addConnection)
 }
 
 export default connectionSaga

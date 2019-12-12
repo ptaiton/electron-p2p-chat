@@ -10,7 +10,9 @@ import { Connection } from '../../types/Connection'
 import { Message } from '../../types/Message'
 
 export type RequestConnectionsAction = Action<typeof REQUEST_CONNECTIONS>
-export type AddConnectionAction = Action<typeof ADD_CONNECTION>
+export type AddConnectionAction = Action<typeof ADD_CONNECTION> & {
+  connection: Connection
+}
 export type ResponseConnectionsAction = Action<typeof RESPONSE_CONNECTIONS> & {
   connections: Connection[]
 }
@@ -24,5 +26,6 @@ export type ResponseMessagesAction = Action<typeof RESPONSE_MESSAGES> & {
 export type ConnectionActionTypes = 
   RequestConnectionsAction 
   | ResponseConnectionsAction
+  | AddConnectionAction
   | RequestMessagesAction
   | ResponseMessagesAction
