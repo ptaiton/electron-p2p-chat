@@ -8,6 +8,14 @@ import { saveState } from '../utils/localstorage'
 import saga from '../sagas/saga'
 import throttle from '../utils/throttle'
 
+declare global {
+  interface Window { __REDUX_DEVTOOLS_EXTENSION__: any; }
+}
+
+const enhancers = compose(
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+
 export const history = createHashHistory()
 const sagaMiddleware = createSagaMiddleware()
 
@@ -18,11 +26,15 @@ const store = createStore(
       sagaMiddleware,
       routerMiddleware(history),
     ),
+    enhancers
   ),
 )
 
 store.subscribe(throttle(() => {
-  saveState({ connections: store.getState().connections })
+  saveState({
+    user: store.getState().user,
+    connections: store.getState().connections
+  })
 }, 1000))
 
 

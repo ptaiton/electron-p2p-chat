@@ -3,7 +3,8 @@ import {
   RequestConnectionsAction, 
   ResponseConnectionsAction,
   RequestMessagesAction,
-  ResponseMessagesAction
+  ResponseMessagesAction,
+  SendMessageAction
 } from './connectionActionTypes'
 import { Connection } from '../../types/Connection'
 import { Message } from '../../types/Message'
@@ -13,6 +14,8 @@ export const RESPONSE_CONNECTIONS = 'RESPONSE_CONNECTIONS'
 export const ADD_CONNECTION = 'ADD_CONNECTION'
 export const REQUEST_MESSAGES = 'REQUEST_MESSAGES'
 export const RESPONSE_MESSAGES = 'RESPONSE_MESSAGES'
+export const SEND_MESSAGE = 'SEND_MESSAGE'
+export const ADD_MESSAGE = 'ADD_MESSAGE'
 
 export const fetchConnections = () => (dispatch: Dispatch<RequestConnectionsAction>) => {
   dispatch({
@@ -25,6 +28,10 @@ export const updateConnections = () => (dispatch: Dispatch<ResponseConnectionsAc
     type: RESPONSE_CONNECTIONS,
     connections,
   })
+}
+
+export const sendMessage = () => (dispatch: Dispatch<SendMessageAction>, content: string) => {
+  dispatch({ type: SEND_MESSAGE, content })
 }
 
 export const fetchMessages = () => (dispatch: Dispatch<RequestMessagesAction>) => {

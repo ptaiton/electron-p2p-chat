@@ -59,9 +59,6 @@ export default function Compose(props:any) {
   
   return (
     <div className="compose">
-      <Button variant="outlined" color="primary" onClick={addAndCleanMesssage}>
-        <SendIcon></SendIcon>
-      </Button>
       <input
         type="text"
         className="compose-input"
@@ -70,7 +67,27 @@ export default function Compose(props:any) {
         value={message}
         onKeyPress={handleEnterPressed}
       />
-      
+      <Divider className={classes.divider} orientation="vertical" />
+      <IconButton color="primary" className={classes.iconButton} aria-label="SendIcon" onClick={addAndCleanMesssage}>
+        <SendIcon />
+      </IconButton>
+      {/* <Paper 
+        component="form" 
+        className={classes.root}
+        onChange={handleMessage}
+        value={message}
+        onKeyPress={handleEnterPressed}>
+        <InputBase
+          className={classes.input}
+          placeholder="Send Message"
+        />
+        <Divider className={classes.divider} orientation="vertical" />
+        <IconButton color="primary" className={classes.iconButton} aria-label="SendIcon" onClick={addAndCleanMesssage}>
+          <SendIcon />
+        </IconButton>
+      </Paper> */}
+
     </div>
+    
   );
 }

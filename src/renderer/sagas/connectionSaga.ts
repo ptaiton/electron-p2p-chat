@@ -1,25 +1,32 @@
-import { put, takeLatest } from 'redux-saga/effects'
-import { LocationChangeAction, LOCATION_CHANGE } from 'connected-react-router'
-import { REQUEST_MESSAGES, REQUEST_CONNECTIONS, ADD_CONNECTION } from '../actions/connection/connectionActions'
-import { ROUTES } from '../types/route'
+import { put, takeLatest, select } from 'redux-saga/effects'
+import { SEND_MESSAGE, ADD_MESSAGE } from '../actions/connection/connectionActions'
+import { SendMessageAction} from '../actions/connection/connectionActionTypes'
+import { Message } from '../types/Message'
+import { getUser } from '../selectors/userSelector'
+import { getSocket } from '../selectors/socketSelector'
+import { Socket } from '../types/Socket'
+import { getHost } from '../selectors/routeSelector'
 
-function* addConnection(action: LocationChangeAction) {
+function* sendMessage(action: SendMessageAction) {
   try {
-    switch (action.payload.location.pathname) {
-      case ROUTES.HOME.path: {
-        yield put({type: REQUEST_CONNECTIONS })
-      }
-      case ROUTES.MESSAGES.path: {
-        yield put({type: REQUEST_MESSAGES })
-      }
+    const socket: Socket = yield select(getSocket)
+    const host = yield select(getHost)
+    const author = yield select(getUser)
+    const message: Message = {
+      author,
+      content: action.content,
+      creationDate: new Date().toISOString()
     }
+    
+    socket.emit('message', message.content)
+    yield put({ type: ADD_MESSAGE, host, message })
   } catch (e) {
     console.log(e)
   }
 }
 
-function* connectionSaga(action: LocationChangeAction) {
-  yield takeLatest(ADD_CONNECTION, addConnection)
+function* connectionSaga() {
+  yield takeLatest(SEND_MESSAGE, sendMessage)
 }
 
 export default connectionSaga

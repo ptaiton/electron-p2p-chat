@@ -6,9 +6,9 @@ import { ADD_CONNECTION } from '../actions/connection/connectionActions'
 import { Button } from '@material-ui/core'
 
 export default () => {
-  const dispatch = useDispatch()
   const [ host, setHost ] = useState('')
   const [ name, setName ] = useState('')
+  const dispatch = useDispatch()
 
   const handleIpInputChange: InputChangeEventHandler = (event) => {
     setHost(event.target.value)
@@ -19,7 +19,7 @@ export default () => {
   }
 
   const handleAddConnectionClick = () => {
-    dispatch({type: ADD_CONNECTION, connection: { host, name }})
+    dispatch({type: ADD_CONNECTION, connection: { host, name, messages: [] }})
   }
 
   return (

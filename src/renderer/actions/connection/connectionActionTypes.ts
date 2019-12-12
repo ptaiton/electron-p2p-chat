@@ -5,6 +5,8 @@ import {
   ADD_CONNECTION,
   REQUEST_MESSAGES, 
   RESPONSE_MESSAGES,
+  ADD_MESSAGE,
+  SEND_MESSAGE
 } from './connectionActions'
 import { Connection } from '../../types/Connection'
 import { Message } from '../../types/Message'
@@ -18,6 +20,13 @@ export type ResponseConnectionsAction = Action<typeof RESPONSE_CONNECTIONS> & {
 }
 
 export type RequestMessagesAction = Action<typeof REQUEST_MESSAGES>
+export type SendMessageAction = Action<typeof SEND_MESSAGE> & {
+  content: string
+}
+export type AddMessageAction = Action<typeof ADD_MESSAGE> & {
+  host: string,
+  message: Message
+}
 export type ResponseMessagesAction = Action<typeof RESPONSE_MESSAGES> & {
   messages: Message[]
 }
@@ -28,4 +37,6 @@ export type ConnectionActionTypes =
   | ResponseConnectionsAction
   | AddConnectionAction
   | RequestMessagesAction
+  | SendMessageAction
+  | AddMessageAction
   | ResponseMessagesAction

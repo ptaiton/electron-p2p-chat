@@ -1,4 +1,3 @@
 export interface User {
-  ip: string
-  name: string
+  id: string
 }
