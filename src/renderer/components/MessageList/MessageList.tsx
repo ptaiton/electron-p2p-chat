@@ -5,17 +5,12 @@ import './MessageList.css';
 import { number } from 'prop-types';
 import {Message} from '../../types/Message'
 
-export default function MessageList(props: any) {
-  const [messages, setMessages] = useState<Message[]>([])
-  const [user,setUser] = useState('apple')
-  const messagesEndRef = useRef<any>(null);
+export default ({ sendMessage, messages }: Props) => {
+  const [ content, setContent ] = useState('')
+  const [ user, setUser ] = useState('apple')
 
-  const scrollToBottom = () => {
-    messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-  };
-  
   const addNewMessage = (messageContent: string) =>{
-    let message: Message={
+    const msgToAdd: Message= {
       author:{
         ip:'toto',
         name:'apple'
@@ -23,35 +18,26 @@ export default function MessageList(props: any) {
       content: messageContent,
       creationDate: new Date().getTime().toString()
     }
-    setMessages(messages => [...messages,message])
+    sendMessage(content)
   }
-
-  useEffect(() => {
-    //addNewMessage('toto')
-    scrollToBottom
-  },[])
-
-
-  const renderMessages = () => {
-    console.log(messages)
-    return messages.map((message:Message) =>(
-      <BaseMessage
-        ref={messagesEndRef}
-        key={message.creationDate}
-        isMine={message.author.name === user}
-        startsSequence={false}
-        endsSequence={false}
-        showTimestamp={false}
-        data={message}
-      />
-    ))
-    }
-    
 
     return(
       <div className="message-list">
-        <div className="message-list-container">{renderMessages()}</div>        
+        <div className="message-list-container">
+          {messages.map((message:Message) => (
+            <BaseMessage
+              key={message.creationDate}
+              message={message}
+              isMine={message.author.name === user}
+            />
+          ))}
+        </div>        
         <Compose addNewMessage={addNewMessage}/>
       </div>
     );
+}
+
+interface Props {
+  sendMessage: Function
+  messages: Message[]
 }

@@ -1,29 +1,18 @@
-import React from 'react';
-import './Message.css';
+import React from 'react'
+import { Message } from '../../types/Message'
+import './Message.css'
 
-export default function BaseMessage(props: any) {
-    const {
-      data,
-      isMine,
-      startsSequence,
-      endsSequence,
-      showTimestamp
-    } = props;
-
-
-    return (
-      <div className={[
-        'message',
-        `${isMine ? 'mine' : ''}`,
-        `${startsSequence ? 'start' : ''}`,
-        `${endsSequence ? 'end' : ''}`
-      ].join(' ')}>
-
-        <div className="bubble-container">
-          <div className="bubble" >
-            { data.content }
-          </div>
-        </div>
+export default ({ message, isMine }: Props) => (
+  <div className={[ 'message', `${isMine ? 'mine' : ''}`].join(' ')}>
+    <div className="bubble-container">
+      <div className="bubble">
+        {message.content}
       </div>
-    );
+    </div>
+  </div>
+)
+
+interface Props {
+  message: Message
+  isMine: boolean
 }
