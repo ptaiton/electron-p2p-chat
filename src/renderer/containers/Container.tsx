@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
 import List from '@material-ui/core/List'
@@ -6,8 +6,9 @@ import Divider from '@material-ui/core/Divider'
 import AddConnection from '@material-ui/icons/AddCircleOutlineOutlined'
 import ListItemLink from '../components/ListItemLink/ListItemLink'
 import ConnectionsList from '../components/ConnectionsList/ConnectionsList'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { getConnections } from '../selectors/connectionSelectors'
+import { initSocket } from '../utils/initSocket'
 
 const drawerWidth = 240
 
@@ -37,7 +38,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default ({ children }: Props) => {
   const classes = useStyles()
+  const dispatch = useDispatch()
   const connections = useSelector(getConnections)
+
+  useEffect(() => {
+    initSocket(dispatch)
+  }, [])
 
   return (
     <div className={classes.root}>

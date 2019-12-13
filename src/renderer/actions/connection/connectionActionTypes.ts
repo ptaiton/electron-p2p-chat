@@ -6,7 +6,8 @@ import {
   REQUEST_MESSAGES, 
   RESPONSE_MESSAGES,
   ADD_MESSAGE,
-  SEND_MESSAGE
+  SEND_MESSAGE,
+  RECEIVE_MESSAGE
 } from './connectionActions'
 import { Connection } from '../../types/Connection'
 import { Message } from '../../types/Message'
@@ -30,7 +31,9 @@ export type AddMessageAction = Action<typeof ADD_MESSAGE> & {
 export type ResponseMessagesAction = Action<typeof RESPONSE_MESSAGES> & {
   messages: Message[]
 }
-
+export type ReceiveMessageAction = Action<typeof RECEIVE_MESSAGE> & {
+  content: string
+}
 
 export type ConnectionActionTypes = 
   RequestConnectionsAction 
@@ -40,3 +43,4 @@ export type ConnectionActionTypes =
   | SendMessageAction
   | AddMessageAction
   | ResponseMessagesAction
+  | ReceiveMessageAction

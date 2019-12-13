@@ -11,10 +11,11 @@ const server = app.listen(3000)
 const io = socketIO(server, { serveClient: false })
 
 io.on('connection', (socket) => {
-  console.log('new user connected')
+  console.log(`new user connected from: ${socket.handshake.address.split(':').slice(-1)[0]}`)
   socket.on('message', (message: string) => {
+    console.log(message)
     io.emit('message', {
-      message, host: socket.handshake.address
+      message, host: socket.handshake.address.split(':').slice(-1)[0]
     })
     
   })

@@ -11,6 +11,11 @@ import Message from './containers/Messenger/Messenger'
 import store, { history } from './store/createStore'
 import theme from './utils/createMuiTheme'
 import { ROUTES } from './types/route'
+import { connect } from 'socket.io-client'
+
+const sock = connect(`http://127.0.0.1:3000`)
+sock.on('message', (msg: string) => console.log(msg))
+
 
 export default hot(() => (
   <Provider store={store}>

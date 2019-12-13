@@ -9,7 +9,6 @@ import { State } from '../../store/createStore'
 import { getHost } from '../../selectors/routeSelector'
 import { getUser } from '../../selectors/userSelector'
 
-
 export default () => {
   const messages = useSelector(getMessages)
   const user = useSelector(getUser)

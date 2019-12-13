@@ -1,6 +1,6 @@
 import { put, takeLatest, select } from 'redux-saga/effects'
-import { SEND_MESSAGE, ADD_MESSAGE } from '../actions/connection/connectionActions'
-import { SendMessageAction} from '../actions/connection/connectionActionTypes'
+import { SEND_MESSAGE, ADD_MESSAGE, RECEIVE_MESSAGE } from '../actions/connection/connectionActions'
+import { SendMessageAction,ReceiveMessageAction} from '../actions/connection/connectionActionTypes'
 import { Message } from '../types/Message'
 import { getUser } from '../selectors/userSelector'
 import { getSocket } from '../selectors/socketSelector'
@@ -24,6 +24,23 @@ function* sendMessage(action: SendMessageAction) {
     console.log(e)
   }
 }
+
+function* receiveMesageAction(action: ReceiveMessageAction) {
+  try {
+    const socket: Socket = yield select(getSocket)
+    const host = yield select(getHost)
+    const author = yield select(getUser)
+    const message: Message = {
+      author,
+      content: action.content,
+      creationDate: new Date().toISOString()
+    }
+    yield put({ type: ADD_MESSAGE, host, message })
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 
 function* connectionSaga() {
   yield takeLatest(SEND_MESSAGE, sendMessage)
