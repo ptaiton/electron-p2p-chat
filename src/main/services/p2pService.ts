@@ -12,7 +12,10 @@ const io = socketIO(server, { serveClient: false })
 
 io.on('connection', (socket) => {
   console.log('new user connected')
-  socket.on('message', (msg: string) => {
-    io.emit('message', msg)
+  socket.on('message', (message: string) => {
+    io.emit('message', {
+      message, host: socket.handshake.address
+    })
+    
   })
 })
