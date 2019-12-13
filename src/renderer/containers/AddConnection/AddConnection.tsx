@@ -78,7 +78,7 @@ export default () => {
         <Typography component="h1" variant="h5">
           Enter peer host informations
         </Typography>
-        <form className={classes.form} noValidate>
+        <div className={classes.form}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -111,7 +111,7 @@ export default () => {
             disabled={!host || !!hostIpError}>
             Add Connection
           </Button>
-        </form>
+        </div>
       </div>
     </Container>
   )

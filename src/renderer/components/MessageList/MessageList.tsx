@@ -1,19 +1,22 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useRef } from 'react'
 import Compose from '../Compose/Compose'
 import BaseMessage from '../Message/Message'
 import {Message} from '../../types/Message'
-import { ADD_MESSAGE } from '../../actions/connection/connectionActions'
-import './MessageList.css'
 import { User } from '../../types/User'
+import './MessageList.css'
 
 export default ({ sendMessage, messages, author }: Props) => {
-  const [ content, setContent ] = useState('')
-  const [ user, setUser ] = useState('apple')
+  const dummyRef = useRef<HTMLDivElement>(null)
 
   const addNewMessage = (messageContent: string) => {
     sendMessage(messageContent)
   }
+  
+  setTimeout(() => {
+    if(dummyRef.current !== null) {
+      dummyRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, 10)
   
   return(
     <div className="message-list">
@@ -25,6 +28,7 @@ export default ({ sendMessage, messages, author }: Props) => {
             isMine={message.author.id === author.id}
           />
         ))}
+        <div ref={dummyRef} />
       </div>        
       <Compose addNewMessage={addNewMessage}/>
     </div>
