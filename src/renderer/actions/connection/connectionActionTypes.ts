@@ -32,6 +32,7 @@ export type ResponseMessagesAction = Action<typeof RESPONSE_MESSAGES> & {
   messages: Message[]
 }
 export type ReceiveMessageAction = Action<typeof RECEIVE_MESSAGE> & {
+  host: string
   content: string
 }
 

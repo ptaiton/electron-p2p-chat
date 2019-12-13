@@ -49,9 +49,10 @@ export const updateMessages = () => (dispatch: Dispatch<ResponseMessagesAction>,
   })
 }
 
-export const receiveMessage = (dispatch: Dispatch<ReceiveMessageAction>, content: string) => {
+export const receiveMessage = (dispatch: Dispatch<ReceiveMessageAction>, host: string, content: string) => {
   dispatch({
     type: RECEIVE_MESSAGE,
+    host,
     content
   }
   )

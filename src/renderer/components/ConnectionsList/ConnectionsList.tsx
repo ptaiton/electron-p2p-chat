@@ -9,9 +9,9 @@ export default ({ connections }: Props) => {
   const getConnectionRoute = (host: string) => `${ROUTES.MESSAGES.path}/${serializeConnection(host)}`
   return (
     <React.Fragment>
-      {connections.map(connection => (
+      {connections.map((connection, index) => (
         <ListItemLink
-          key={connection.host}
+          key={index}
           to={getConnectionRoute(connection.host)}
           icon={<ConnectionIcon />}
           primary={connection.name || connection.host} />

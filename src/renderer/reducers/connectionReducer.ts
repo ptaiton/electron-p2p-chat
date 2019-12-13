@@ -9,6 +9,7 @@ const initialState: ConnectionState = {}
 export default (state = initialState, action: ConnectionActionTypes) => {
   switch (action.type) {
     case ADD_MESSAGE: {
+      console.log(action)
       const connection = {...state[action.host]}
       connection.messages = [...connection.messages, action.message]
       return {

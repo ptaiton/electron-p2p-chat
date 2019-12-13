@@ -12,10 +12,10 @@ const io = socketIO(server, { serveClient: false })
 
 io.on('connection', (socket) => {
   console.log(`new user connected from: ${socket.handshake.address.split(':').slice(-1)[0]}`)
-  socket.on('message', (message: string) => {
-    console.log(message)
+  socket.on('message', (messageContent: string) => {
     io.emit('message', {
-      message, host: socket.handshake.address.split(':').slice(-1)[0]
+      host: socket.handshake.address.split(':').slice(-1)[0],
+      content: messageContent, 
     })
     
   })

@@ -1,11 +1,13 @@
 import { put, takeLatest, select } from 'redux-saga/effects'
-import { SEND_MESSAGE, ADD_MESSAGE, RECEIVE_MESSAGE } from '../actions/connection/connectionActions'
+import { SEND_MESSAGE, ADD_MESSAGE, RECEIVE_MESSAGE, ADD_CONNECTION } from '../actions/connection/connectionActions'
 import { SendMessageAction,ReceiveMessageAction} from '../actions/connection/connectionActionTypes'
 import { Message } from '../types/Message'
 import { getUser } from '../selectors/userSelector'
 import { getSocket } from '../selectors/socketSelector'
 import { Socket } from '../types/Socket'
 import { getHost } from '../selectors/routeSelector'
+import { getConnections } from '../selectors/connectionSelectors'
+import { Connection } from '../types/Connection'
 
 function* sendMessage(action: SendMessageAction) {
   try {
@@ -25,17 +27,31 @@ function* sendMessage(action: SendMessageAction) {
   }
 }
 
-function* receiveMesageAction(action: ReceiveMessageAction) {
+function* receiveMessage(action: ReceiveMessageAction) {
   try {
-    const socket: Socket = yield select(getSocket)
+    console.log('saga', action)
     const host = yield select(getHost)
-    const author = yield select(getUser)
+    const connections: Connection[] = yield select(getConnections)
+    const isConnectionPresent = connections
+      .find(connection => connection.host === action.host)
+    const now = new Date().toISOString()
+
     const message: Message = {
-      author,
+      author: { id: action.host },
       content: action.content,
-      creationDate: new Date().toISOString()
+      creationDate: now
     }
-    yield put({ type: ADD_MESSAGE, host, message })
+
+    if(!isConnectionPresent) {
+      yield put({ type: ADD_CONNECTION, connection: {
+        host: action.host,
+        name: action.host,
+        messages: [message],
+        lastViewed: now
+      }})
+    } else {
+      yield put({ type: ADD_MESSAGE, host, message })
+    }
   } catch (e) {
     console.log(e)
   }
@@ -44,6 +60,7 @@ function* receiveMesageAction(action: ReceiveMessageAction) {
 
 function* connectionSaga() {
   yield takeLatest(SEND_MESSAGE, sendMessage)
+  yield takeLatest(RECEIVE_MESSAGE, receiveMessage)
 }
 
 export default connectionSaga
