@@ -54,7 +54,6 @@ export default ({ children }: Props) => {
         anchor="left">
         <List>
           <ListItemLink to="/add-connection" icon={<AddConnection />} primary="Add connection" />
-          <ListItemLink to="/messages" icon={<AddConnection />} primary="Messages" />
         </List>
         <Divider />
         <List>
