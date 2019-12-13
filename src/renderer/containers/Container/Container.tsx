@@ -4,11 +4,11 @@ import Drawer from '@material-ui/core/Drawer'
 import List from '@material-ui/core/List'
 import Divider from '@material-ui/core/Divider'
 import AddConnection from '@material-ui/icons/AddCircleOutlineOutlined'
-import ListItemLink from '../components/ListItemLink/ListItemLink'
-import ConnectionsList from '../components/ConnectionsList/ConnectionsList'
+import ListItemLink from '../../components/ListItemLink/ListItemLink'
+import ConnectionsList from '../../components/ConnectionsList/ConnectionsList'
 import { useSelector, useDispatch } from 'react-redux'
-import { getConnections } from '../selectors/connectionSelectors'
-import { initSocket } from '../utils/initSocket'
+import { getConnections } from '../../selectors/connectionSelectors'
+import { initSocket } from '../../utils/socket'
 
 const drawerWidth = 240
 
@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme: Theme) =>
     toolbar: theme.mixins.toolbar,
     content: {
       flexGrow: 1,
-      padding: theme.spacing(3),
     },
   }),
 )
@@ -54,7 +53,6 @@ export default ({ children }: Props) => {
         anchor="left">
         <List>
           <ListItemLink to="/add-connection" icon={<AddConnection />} primary="Add connection" />
-          <ListItemLink to="/messages" icon={<AddConnection />} primary="Messages" />
         </List>
         <Divider />
         <List>

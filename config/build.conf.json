@@ -1,10 +1,6 @@
 {
-  "productName": "ProductName",
-  "appId": "org.your.productname",
-  "mac": {
-    "category": "your.app.category.type",
-    "target": "pkg"
-  },
+  "productName": "P2P - Chat",
+  "appId": "xyz.ptaiton.p2pchat",
   "directories": {
     "output": "release"
   },
@@ -13,10 +9,17 @@
     "node_modules/",
     "package.json"
   ],
+  "mac": {
+    "category": "public.app-category.social-networking",
+    "target": "pkg",
+    "icon": "ressources/icon.png"
+  },
   "linux": {
-    "target": "deb"
+    "target": [ "deb", "rpm", "AppImage" ],
+    "icon": "ressources/icon.png"
   },
   "win": {
-    "target": "nsis"
+    "target": "nsis",
+    "icon": "ressources/icon.png"
   }
 }

@@ -5,7 +5,7 @@
   background: white;
   border-top: 1px solid #eeeef1;
   position: fixed;
-  width: calc(60% - 20px);
+  width: 'calc(100% - 240px)';
   bottom: 0px;
 }
 @supports (backdrop-filter: blur(20px)) {

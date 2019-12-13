@@ -1,27 +1,19 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, Menu } from 'electron'
 import * as path from 'path'
 import * as url from 'url'
+import contextualMenu from './config/contextualMenu'
 import './services/p2pService'
 
 let win: BrowserWindow | null
 
-const installExtensions = async () => {
-  const installer = require('electron-devtools-installer')
-  const forceDownload = !!process.env.UPGRADE_EXTENSIONS
-  const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS']
-
-  return Promise.all(
-    extensions.map(name => installer.default(installer[name], forceDownload))
-  ).catch(console.log)
-}
-
 const createWindow = async () => {
-  if (process.env.NODE_ENV !== 'production') {
-    await installExtensions()
-  }
+  win = new BrowserWindow({ 
+    width: 800, 
+    height: 600
+  })
 
-  win = new BrowserWindow({ width: 800, height: 600 })
-  const t = win.getBrowserView()
+  const menu = Menu.buildFromTemplate(contextualMenu)
+  Menu.setApplicationMenu(menu)
 
   if (process.env.NODE_ENV !== 'production') {
     process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = '1'
@@ -36,14 +28,7 @@ const createWindow = async () => {
     )
   }
 
-  win.webContents.once('dom-ready', () => {
-    win!.webContents.openDevTools()
-  })
-  
-
-  win.on('closed', () => {
-    win = null
-  })
+  win.on('closed', () => { win = null })
 }
 
 app.on('ready', createWindow)

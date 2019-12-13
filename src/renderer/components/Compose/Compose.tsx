@@ -1,16 +1,12 @@
-import React,{useState} from 'react';
-import './Compose.css';
-import SendIcon from '@material-ui/icons/Send';
-import Button from '@material-ui/core/Button';
+import React,{useState} from 'react'
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
+import Divider from '@material-ui/core/Divider'
+import TextField from '@material-ui/core/TextField'
+import IconButton from '@material-ui/core/IconButton'
+import SendIcon from '@material-ui/icons/Send'
+import './Compose.css'
 
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import InputBase from '@material-ui/core/InputBase';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
-import DirectionsIcon from '@material-ui/icons/Directions';
+const drawerWidth = 240
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,6 +15,16 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       alignItems: 'center',
       width: 400,
+    },
+    compose: {
+      padding: '10px',
+      display: 'flex',
+      alignItems: 'center',
+      background: 'white',
+      borderTop: '1px solid #eeeef1',
+      position: 'fixed',
+      bottom: 0,
+      width: `calc(100% - ${drawerWidth}px)`,
     },
     input: {
       marginLeft: theme.spacing(1),
@@ -32,62 +38,42 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: 4,
     },
   }),
-);
+)
 
-export default function Compose(props:any) {
-  const classes = useStyles();
-  const [message, setMessage] = useState<string>('')
+export default (props:any) => {
+  const [message, setMessage] = useState('')
+  const classes = useStyles()
 
   const handleMessage = (event:any) => {
     setMessage(event.target.value)
   }
 
   const handleEnterPressed = (event: React.KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === 'Enter'){
-        addAndCleanMesssage()
-      }
+    if (event.key === 'Enter'){
+      addAndCleanMesssage()
+    }
   }
 
   const addAndCleanMesssage = () => {
-    if (message != ""){
+    if (message != null){
       props.addNewMessage(message)  
       setMessage("")
     }
   }
 
-
-  
   return (
-    <div className="compose">
-      <input
-        type="text"
-        className="compose-input"
-        placeholder="Type a message, @name"
-        onChange={handleMessage}
-        value={message}
-        onKeyPress={handleEnterPressed}
-      />
+    <div className={classes.compose}>
+      <TextField 
+      placeholder="Type a message"
+      onChange={handleMessage}
+      value={message}
+      onKeyPress={handleEnterPressed}
+      fullWidth />
       <Divider className={classes.divider} orientation="vertical" />
       <IconButton color="primary" className={classes.iconButton} aria-label="SendIcon" onClick={addAndCleanMesssage}>
         <SendIcon />
       </IconButton>
-      {/* <Paper 
-        component="form" 
-        className={classes.root}
-        onChange={handleMessage}
-        value={message}
-        onKeyPress={handleEnterPressed}>
-        <InputBase
-          className={classes.input}
-          placeholder="Send Message"
-        />
-        <Divider className={classes.divider} orientation="vertical" />
-        <IconButton color="primary" className={classes.iconButton} aria-label="SendIcon" onClick={addAndCleanMesssage}>
-          <SendIcon />
-        </IconButton>
-      </Paper> */}
-
     </div>
     
-  );
+  )
 }
